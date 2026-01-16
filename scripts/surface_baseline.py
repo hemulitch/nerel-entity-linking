@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
 Step 2: Surface-form frequency baseline for Entity Linking.
 
@@ -29,7 +26,6 @@ Outputs (by default):
 """
 
 from __future__ import annotations
-
 import argparse
 import json
 import math
@@ -156,12 +152,10 @@ def save_ambiguity_report(surface_to_counter: Dict[str, Counter], out_csv: Path,
     for surface, counter in surface_to_counter.items():
         total = sum(counter.values())
         top_qid, top_count = counter.most_common(1)[0]
-        # distinct non-null qids
         qids_nonnull = [q for q in counter.keys() if q != "NULL"]
         distinct_nonnull = len(set(qids_nonnull))
         purity = top_count / total if total else 0.0
 
-        # entropy (optional but useful): higher => more ambiguity
         ent = 0.0
         for _, cnt in counter.items():
             p = cnt / total
@@ -177,17 +171,14 @@ def save_ambiguity_report(surface_to_counter: Dict[str, Counter], out_csv: Path,
             "entropy": ent,
         })
 
-    # sort: many distinct qids, then low purity, then high entropy
     rows_sorted = sorted(rows, key=lambda r: (r["distinct_nonnull_qids"], -r["entropy"], -r["total_mentions_train"]), reverse=True)
     rows_sorted = rows_sorted[:topn]
 
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     with out_csv.open("w", encoding="utf-8") as f:
-        # simple CSV without pandas
         headers = list(rows_sorted[0].keys()) if rows_sorted else ["surface"]
         f.write(",".join(headers) + "\n")
         for r in rows_sorted:
-            # escape commas in surface
             vals = []
             for h in headers:
                 v = r.get(h)
@@ -251,7 +242,6 @@ def evaluate(
     macro, per_type = macro_accuracy_by_type(gold, pred, types)
     null_pr = null_precision_recall(gold, pred)
 
-    # diagnostics: seen vs unseen
     n = len(gold)
     seen_n = sum(1 for x in seen_flags if x)
     unseen_n = n - seen_n
