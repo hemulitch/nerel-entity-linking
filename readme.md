@@ -102,20 +102,22 @@ python scripts/surface_baseline.py --split dev  --processed_dir data/processed -
 python scripts/surface_baseline.py --split test --processed_dir data/processed
 ```
 
-### Cross‑encoder reranker (optional)
+### Cross‑encoder reranker 
 
 1) Create training pairs:
 
 ```bash
-python scripts/make_reranker_pairs2.py \
+python scripts/make_reranker_pairs.py \
   --processed_dir data/processed \
   --bm25_dir data/kb/bm25_all \
   --kb_path data/kb/entities_all.jsonl \
   --out_path data/reranker/train_pairs.jsonl \
   --candidate_k 100 \
+  --max_train_mentions 2000 \
   --neg_per_pos 5 \
   --force_add_gold \
   --add_surface_candidate
+  --use_inner_mentions
 ```
 
 2) Train:
@@ -125,12 +127,14 @@ python scripts/train_reranker.py \
   --train_pairs data/reranker/train_pairs.jsonl \
   --model_name cointegrated/rubert-tiny2 \
   --output_dir runs/reranker_tiny
+  --batch_size 16
+  --epochs 1
 ```
 
 3) Evaluate:
 
 ```bash
-# Dev (find threshold)
+# Dev 
 python scripts/eval_reranker.py \
   --processed_dir data/processed \
   --split dev \
@@ -139,9 +143,11 @@ python scripts/eval_reranker.py \
   --model_dir runs/reranker_tiny \
   --out_dir runs/reranker_eval \
   --candidate_k 100 \
-  --calibrate_on_dev
+  --add_surface_candidate \
+  --use_inner_mentions \
+  --out_dir runs/reranker_tiny
 
-# Test (apply saved threshold)
+# Test 
 python scripts/eval_reranker.py \
   --processed_dir data/processed \
   --split test \
@@ -150,7 +156,9 @@ python scripts/eval_reranker.py \
   --model_dir runs/reranker_tiny \
   --out_dir runs/reranker_eval \
   --candidate_k 100 \
-  --calibration_path runs/reranker_eval/dev/calibration.json
+  --add_surface_candidate \
+  --use_inner_mentions \
+  --out_dir runs/reranker_tiny
 ```
 
 ### Outputs layout
