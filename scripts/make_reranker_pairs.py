@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
-
 import argparse
 import json
 import random
@@ -15,7 +11,6 @@ from typing import Any, Dict, Iterable, List, Optional
 import numpy as np
 from tqdm import tqdm
 
-# ---------- IO ----------
 def read_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
     with path.open("r", encoding="utf-8") as f:
         for line in f:
@@ -29,7 +24,6 @@ def write_jsonl(path: Path, rows: Iterable[Dict[str, Any]]) -> None:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
-# ---------- canonical ids ----------
 ID_RE = re.compile(r"(Q\d+|P\d+)")
 WORD_RE = re.compile(r"[0-9A-Za-zА-Яа-яЁё_]+")
 
@@ -49,7 +43,6 @@ def normalize_surface(s: str) -> str:
     toks = WORD_RE.findall(s)
     return " ".join(toks).strip()
 
-# ---------- surface dict (optional candidate) ----------
 def build_surface_dict(train_path: Path) -> Dict[str, str]:
     counts: Dict[str, Dict[str, int]] = {}
     for ex in read_jsonl(train_path):
@@ -64,7 +57,6 @@ def build_surface_dict(train_path: Path) -> Dict[str, str]:
         out[surf] = max(d.items(), key=lambda kv: kv[1])[0]
     return out
 
-# ---------- KB texts ----------
 def build_entity_text(rec: Dict[str, Any], max_aliases: int = 10) -> str:
     label = rec.get("label", "") or ""
     desc = rec.get("description", "") or ""
@@ -73,7 +65,6 @@ def build_entity_text(rec: Dict[str, Any], max_aliases: int = 10) -> str:
     parts = []
     if label:
         parts.append(label)
-    # aliases часто шумят — поэтому делаем их ограниченно
     if aliases:
         parts.append(" ; ".join(aliases))
     if desc:
@@ -89,11 +80,10 @@ def load_kb_texts(kb_path: Path, max_aliases: int = 10) -> Dict[str, str]:
         kb[qid] = build_entity_text(rec, max_aliases=max_aliases) or qid
     return kb
 
-# ---------- BM25 ----------
 @dataclass
 class BM25Index:
     qids: List[str]
-    bm25: Any  # BM25Okapi
+    bm25: Any 
 
 def load_bm25_index(bm25_dir: Path) -> BM25Index:
     with (bm25_dir / "bm25_index.pkl").open("rb") as f:
@@ -116,7 +106,6 @@ def bm25_topk(idx: BM25Index, query: str, k: int) -> List[str]:
 def make_query(ex: Dict[str, Any], use_context: bool, use_inner_mentions: bool, inner_max: int = 5) -> str:
     mention = ex.get("mention_text", "")
     if use_context:
-        # ВАЖНО: НЕ убираем маркеры [M]...[/M] — пусть модель видит “фокус”
         ctx = ex.get("context_full", "")
         q = f"{ctx}"
     else:
@@ -139,7 +128,6 @@ def unique_keep_order(xs: List[str]) -> List[str]:
         out.append(x)
     return out
 
-# ---------- main ----------
 NULL_TEXT = "NULL_CANDIDATE: нет подходящей сущности (NIL / Wikidata:NULL)."
 
 def main() -> None:
@@ -187,7 +175,6 @@ def main() -> None:
         g = canonical_id(ex.get("gold_qid")) or "NULL"
         query = make_query(ex, use_context=args.use_context, use_inner_mentions=args.use_inner_mentions)
 
-        # BM25 candidates (even for NULL mentions, to create hard negatives)
         cands = bm25_topk(idx, query=query, k=args.candidate_k)
 
         # add surface candidate (hybrid)
@@ -198,17 +185,13 @@ def main() -> None:
                 if q_surf != "NULL":
                     cands = [q_surf] + cands
 
-        # Always include NULL as a candidate in the training universe
-        # (it will be positive only when gold is NULL)
         cands = ["NULL"] + cands
 
-        # Ensure gold is present (important for learning!)
         if args.force_add_gold and g != "NULL" and g not in cands:
             cands = [g] + cands
 
         cands = unique_keep_order(cands)[:args.candidate_k]
 
-        # Helper: get text for candidate
         def cand_text(qid: str) -> Optional[str]:
             if qid == "NULL":
                 return NULL_TEXT
@@ -246,7 +229,6 @@ def main() -> None:
                     "has_inner_mentions": bool(ex.get("inner_mentions")),
                 })
         else:
-            # --- non-NULL: need KB text ---
             if g not in kb_text:
                 skipped_no_kb += 1
                 continue
@@ -264,7 +246,6 @@ def main() -> None:
                 "has_inner_mentions": bool(ex.get("inner_mentions")),
             })
 
-            # !!! ALWAYS add NULL as an explicit negative
             out_rows.append({
                 "query": query,
                 "candidate": NULL_TEXT,
@@ -277,13 +258,11 @@ def main() -> None:
                 "has_inner_mentions": bool(ex.get("inner_mentions")),
             })
 
-            # other negatives (hard negatives) — exclude NULL and gold
             remaining = max(0, args.neg_per_pos - 1)
 
             neg_pool = [q for q in cands if q != g and q != "NULL" and q in kb_text]
             negs = rng.sample(neg_pool, k=min(remaining, len(neg_pool)))
 
-            # fill up if not enough
             while len(negs) < remaining:
                 q = rng.choice(kb_keys)
                 if q != g:
