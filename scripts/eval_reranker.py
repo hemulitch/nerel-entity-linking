@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
-
 import argparse
 import json
 import pickle
@@ -17,7 +13,7 @@ import torch
 from tqdm import tqdm
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
-# -------- IO --------
+
 def read_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
     with path.open("r", encoding="utf-8") as f:
         for line in f:
@@ -36,7 +32,6 @@ def write_jsonl(path: Path, rows: Iterable[Dict[str, Any]]) -> None:
         for r in rows:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
-# -------- canonical ids --------
 ID_RE = re.compile(r"(Q\d+|P\d+)")
 WORD_RE = re.compile(r"[0-9A-Za-zА-Яа-яЁё_]+")
 
@@ -56,7 +51,6 @@ def normalize_surface(s: str) -> str:
     toks = WORD_RE.findall(s)
     return " ".join(toks).strip()
 
-# -------- surface dict (seen/unseen diagnostics) --------
 def build_surface_set(train_path: Path) -> set[str]:
     s = set()
     for ex in read_jsonl(train_path):
@@ -79,7 +73,6 @@ def build_surface_dict(train_path: Path) -> Dict[str, str]:
         out[surf] = max(d.items(), key=lambda kv: kv[1])[0]
     return out
 
-# -------- KB texts --------
 def build_entity_text(rec: Dict[str, Any], max_aliases: int = 10) -> str:
     label = rec.get("label", "") or ""
     desc = rec.get("description", "") or ""
@@ -105,7 +98,6 @@ def load_kb_texts(kb_path: Path, max_aliases: int = 10) -> Dict[str, str]:
 
 NULL_TEXT = "NULL_CANDIDATE: нет подходящей сущности (NIL / Wikidata:NULL)."
 
-# -------- BM25 --------
 @dataclass
 class BM25Index:
     qids: List[str]
@@ -151,7 +143,6 @@ def pick_device(device_arg: str) -> torch.device:
         return torch.device("mps")
     return torch.device("cpu")
 
-# -------- metrics --------
 def micro_accuracy(gold: List[str], pred: List[str]) -> float:
     return sum(int(g == p) for g, p in zip(gold, pred)) / max(1, len(gold))
 
@@ -171,7 +162,6 @@ def acc_on_mask(gold: List[str], pred: List[str], mask: List[bool]) -> float:
         return 0.0
     return sum(int(gold[i] == pred[i]) for i in idx) / len(idx)
 
-# -------- main --------
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--processed_dir", type=str, default="data/processed")
