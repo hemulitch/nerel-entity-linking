@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
-
 import argparse
 import os
 import numpy as np
@@ -33,7 +29,6 @@ def main() -> None:
     ap.add_argument("--eval_ratio", type=float, default=0.02)
     args = ap.parse_args()
 
-    # Helpful for MPS fallback on Mac (optional)
     os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name, use_fast=True)
@@ -63,7 +58,7 @@ def main() -> None:
         acc = (preds == labels).mean()
         return {"accuracy": float(acc)}
 
-    fp16 = False  # на MPS лучше не включать
+    fp16 = False 
     args_tr = TrainingArguments(
         output_dir=args.output_dir,
         num_train_epochs=args.epochs,
