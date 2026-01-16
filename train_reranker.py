@@ -72,7 +72,7 @@ def main() -> None:
         warmup_ratio=args.warmup_ratio,
         per_device_train_batch_size=args.batch_size,
         per_device_eval_batch_size=args.batch_size,
-        evaluation_strategy="steps",
+        eval_strategy="steps",
         eval_steps=1000,
         save_steps=1000,
         logging_steps=200,
