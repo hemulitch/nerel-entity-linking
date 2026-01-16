@@ -1,1 +1,2 @@
 pip install requests rank-bm25 tqdm
+pip install transformers datasets accelerate torch -U
