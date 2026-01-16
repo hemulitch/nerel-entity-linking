@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 """
 Step 1 (NEREL -> mention-level EL dataset):
 - optionally downloads raw NEREL splits from HuggingFace
@@ -34,18 +31,16 @@ from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Tuple
 from collections import Counter, defaultdict
 
-# Optional progress bar
 try:
-    from tqdm import tqdm  # type: ignore
-except Exception:  # pragma: no cover
-    def tqdm(x, **kwargs):  # type: ignore
+    from tqdm import tqdm 
+except Exception:
+    def tqdm(x, **kwargs):
         return x
 
 
-# Optional download
 try:
-    import requests  # type: ignore
-except Exception:  # pragma: no cover
+    import requests
+except Exception: 
     requests = None
 
 
@@ -115,7 +110,7 @@ def parse_link_line(line: str) -> Tuple[str, str]:
         raise ValueError(f"Bad link meta: {parts[1]!r} from {line!r}")
 
     ent_id = meta[1].strip()
-    link = meta[2].strip()  # "Wikidata:Q..." or "Wikidata:NULL"
+    link = meta[2].strip() 
     if ":" in link:
         _, tail = link.split(":", 1)
     else:
@@ -147,7 +142,6 @@ def compute_nested_features(entities: List[Entity], doc_text: str) -> Dict[str, 
       nesting_level: number of containers
       inner_mentions: list[str] of inner entity surface texts (sorted by offset)
     """
-    # Sort entities by (start, stop) to make inner list ordered
     ents_sorted = sorted(entities, key=lambda e: (e.start, e.stop))
 
     feats: Dict[str, Dict[str, Any]] = {}
@@ -260,7 +254,6 @@ def build_processed_split(
         for line in entities_raw:
             try:
                 e = parse_entity_line(line)
-                # sanity: offsets within bounds
                 if not (0 <= e.start < e.stop <= len(text)):
                     continue
                 entities.append(e)
@@ -307,7 +300,7 @@ def build_processed_split(
                 "start": e.start,
                 "stop": e.stop,
                 "mention_text": mention_text,
-                "gold_qid": gold_qid,  # "Q..." or "NULL"
+                "gold_qid": gold_qid, 
                 "context_left": left,
                 "context_right": right,
                 "context_full": context_full,
