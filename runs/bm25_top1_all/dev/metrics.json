@@ -1,0 +1,101 @@
+{
+  "n": 3557,
+  "micro_accuracy": 0.23896542029800394,
+  "macro_accuracy": 0.17513337687751213,
+  "null_stats": {
+    "tp": 359,
+    "fp": 1597,
+    "fn": 192,
+    "precision": 0.18353783231083845,
+    "recall": 0.6515426497277677,
+    "f1": 0.28639808536098926
+  },
+  "per_type_accuracy": {
+    "PERSON": {
+      "n": 942,
+      "acc": 0.49469214437367304
+    },
+    "CITY": {
+      "n": 208,
+      "acc": 0.028846153846153848
+    },
+    "PROFESSION": {
+      "n": 843,
+      "acc": 0.09489916963226572
+    },
+    "COUNTRY": {
+      "n": 353,
+      "acc": 0.0
+    },
+    "FACILITY": {
+      "n": 84,
+      "acc": 0.38095238095238093
+    },
+    "ORGANIZATION": {
+      "n": 611,
+      "acc": 0.25368248772504093
+    },
+    "DISTRICT": {
+      "n": 17,
+      "acc": 0.0
+    },
+    "WORK_OF_ART": {
+      "n": 103,
+      "acc": 0.4854368932038835
+    },
+    "LOCATION": {
+      "n": 63,
+      "acc": 0.12698412698412698
+    },
+    "NATIONALITY": {
+      "n": 59,
+      "acc": 0.0
+    },
+    "AWARD": {
+      "n": 41,
+      "acc": 0.3170731707317073
+    },
+    "STATE_OR_PROVINCE": {
+      "n": 99,
+      "acc": 0.010101010101010102
+    },
+    "LAW": {
+      "n": 75,
+      "acc": 0.36
+    },
+    "CRIME": {
+      "n": 8,
+      "acc": 0.75
+    },
+    "PRODUCT": {
+      "n": 30,
+      "acc": 0.2
+    },
+    "LANGUAGE": {
+      "n": 7,
+      "acc": 0.0
+    },
+    "RELIGION": {
+      "n": 9,
+      "acc": 0.0
+    },
+    "DATE": {
+      "n": 1,
+      "acc": 0.0
+    },
+    "EVENT": {
+      "n": 2,
+      "acc": 0.0
+    },
+    "NUMBER": {
+      "n": 2,
+      "acc": 0.0
+    }
+  },
+  "threshold": 45.72230759427085,
+  "use_context": true,
+  "nested_accuracy_inner_mentions": 0.0851063829787234,
+  "non_nested_accuracy": 0.2869789745481372,
+  "outer_mentions_accuracy_has_inner": 0.3270223752151463,
+  "no_inner_mentions_accuracy": 0.2217741935483871
+}

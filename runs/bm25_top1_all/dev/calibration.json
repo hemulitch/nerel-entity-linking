@@ -1,0 +1,412 @@
+{
+  "best": {
+    "threshold": 45.72230759427085,
+    "micro_accuracy": 0.23896542029800394
+  },
+  "curve": [
+    {
+      "threshold": 15.744465093042002,
+      "micro_accuracy": 0.18498734888951363
+    },
+    {
+      "threshold": 19.200339482759258,
+      "micro_accuracy": 0.18695529940961483
+    },
+    {
+      "threshold": 21.194832767257058,
+      "micro_accuracy": 0.1877987067753725
+    },
+    {
+      "threshold": 22.158402792512558,
+      "micro_accuracy": 0.1900477930840596
+    },
+    {
+      "threshold": 23.32897846047212,
+      "micro_accuracy": 0.1922968793927467
+    },
+    {
+      "threshold": 24.1742890051046,
+      "micro_accuracy": 0.19370255833567612
+    },
+    {
+      "threshold": 24.692812256379085,
+      "micro_accuracy": 0.19342142254709024
+    },
+    {
+      "threshold": 25.391990304807244,
+      "micro_accuracy": 0.19370255833567612
+    },
+    {
+      "threshold": 25.833374007970665,
+      "micro_accuracy": 0.19510823727860557
+    },
+    {
+      "threshold": 26.206848726460382,
+      "micro_accuracy": 0.19595164464436324
+    },
+    {
+      "threshold": 26.626260574165457,
+      "micro_accuracy": 0.19707618779870678
+    },
+    {
+      "threshold": 27.25878822469996,
+      "micro_accuracy": 0.19763845937587854
+    },
+    {
+      "threshold": 27.708340174253486,
+      "micro_accuracy": 0.199044138318808
+    },
+    {
+      "threshold": 28.023515875410872,
+      "micro_accuracy": 0.20269890357042453
+    },
+    {
+      "threshold": 28.357307322044967,
+      "micro_accuracy": 0.20354231093618216
+    },
+    {
+      "threshold": 28.74146888110993,
+      "micro_accuracy": 0.20410458251335395
+    },
+    {
+      "threshold": 29.073984751627354,
+      "micro_accuracy": 0.2029800393590104
+    },
+    {
+      "threshold": 29.3397643547081,
+      "micro_accuracy": 0.20354231093618216
+    },
+    {
+      "threshold": 29.950541571938935,
+      "micro_accuracy": 0.20551026145628337
+    },
+    {
+      "threshold": 30.4425624999257,
+      "micro_accuracy": 0.20551026145628337
+    },
+    {
+      "threshold": 30.889397692962955,
+      "micro_accuracy": 0.20663480461062694
+    },
+    {
+      "threshold": 31.143202303333645,
+      "micro_accuracy": 0.20747821197638458
+    },
+    {
+      "threshold": 31.782547493420612,
+      "micro_accuracy": 0.20860275513072815
+    },
+    {
+      "threshold": 32.12118857929552,
+      "micro_accuracy": 0.21057070565082936
+    },
+    {
+      "threshold": 32.48904287275634,
+      "micro_accuracy": 0.21113297722800112
+    },
+    {
+      "threshold": 32.891112781057096,
+      "micro_accuracy": 0.2116952488051729
+    },
+    {
+      "threshold": 33.42918750992381,
+      "micro_accuracy": 0.21310092774810233
+    },
+    {
+      "threshold": 33.93170075978313,
+      "micro_accuracy": 0.21338206353668823
+    },
+    {
+      "threshold": 34.35965529579846,
+      "micro_accuracy": 0.21281979195951645
+    },
+    {
+      "threshold": 34.64607169401373,
+      "micro_accuracy": 0.21394433511386
+    },
+    {
+      "threshold": 34.91298817299717,
+      "micro_accuracy": 0.21675569299971886
+    },
+    {
+      "threshold": 35.272898834270144,
+      "micro_accuracy": 0.2184425077312342
+    },
+    {
+      "threshold": 35.64277060497863,
+      "micro_accuracy": 0.21956705088557774
+    },
+    {
+      "threshold": 35.906962400078946,
+      "micro_accuracy": 0.22181613719426482
+    },
+    {
+      "threshold": 36.35451058592837,
+      "micro_accuracy": 0.22322181613719427
+    },
+    {
+      "threshold": 36.705672287560546,
+      "micro_accuracy": 0.22378408771436603
+    },
+    {
+      "threshold": 37.46464174371537,
+      "micro_accuracy": 0.22575203823446724
+    },
+    {
+      "threshold": 38.00436357710668,
+      "micro_accuracy": 0.22687658138881078
+    },
+    {
+      "threshold": 38.32292780805161,
+      "micro_accuracy": 0.22800112454315435
+    },
+    {
+      "threshold": 38.78433067600194,
+      "micro_accuracy": 0.22800112454315435
+    },
+    {
+      "threshold": 39.310273089690575,
+      "micro_accuracy": 0.228844531908912
+    },
+    {
+      "threshold": 39.596271629639446,
+      "micro_accuracy": 0.22828226033174023
+    },
+    {
+      "threshold": 39.9914274071876,
+      "micro_accuracy": 0.22771998875456845
+    },
+    {
+      "threshold": 40.33732418989801,
+      "micro_accuracy": 0.2265954456002249
+    },
+    {
+      "threshold": 40.852555642875906,
+      "micro_accuracy": 0.22687658138881078
+    },
+    {
+      "threshold": 41.178557544769355,
+      "micro_accuracy": 0.2271577171773967
+    },
+    {
+      "threshold": 41.736116123529705,
+      "micro_accuracy": 0.2291256676974979
+    },
+    {
+      "threshold": 41.945211530872484,
+      "micro_accuracy": 0.22940680348608378
+    },
+    {
+      "threshold": 42.28609548055248,
+      "micro_accuracy": 0.23390497610345798
+    },
+    {
+      "threshold": 42.97411368555638,
+      "micro_accuracy": 0.23306156873770031
+    },
+    {
+      "threshold": 43.28332533023064,
+      "micro_accuracy": 0.23278043294911444
+    },
+    {
+      "threshold": 43.88617951614173,
+      "micro_accuracy": 0.23615406241214507
+    },
+    {
+      "threshold": 44.516792217869636,
+      "micro_accuracy": 0.23699746977790273
+    },
+    {
+      "threshold": 44.97844773212349,
+      "micro_accuracy": 0.23671633398931685
+    },
+    {
+      "threshold": 45.420273047520624,
+      "micro_accuracy": 0.2372786055664886
+    },
+    {
+      "threshold": 45.72230759427085,
+      "micro_accuracy": 0.23896542029800394
+    },
+    {
+      "threshold": 46.34430106561261,
+      "micro_accuracy": 0.23840314872083215
+    },
+    {
+      "threshold": 47.10427296487139,
+      "micro_accuracy": 0.23868428450941806
+    },
+    {
+      "threshold": 48.06936767616949,
+      "micro_accuracy": 0.23699746977790273
+    },
+    {
+      "threshold": 48.67374847139134,
+      "micro_accuracy": 0.23699746977790273
+    },
+    {
+      "threshold": 49.14332740956821,
+      "micro_accuracy": 0.23615406241214507
+    },
+    {
+      "threshold": 50.11104511494681,
+      "micro_accuracy": 0.23418611189204386
+    },
+    {
+      "threshold": 50.777647582487816,
+      "micro_accuracy": 0.23474838346921564
+    },
+    {
+      "threshold": 51.44559998875308,
+      "micro_accuracy": 0.2358729266235592
+    },
+    {
+      "threshold": 51.7993404463045,
+      "micro_accuracy": 0.23643519820073094
+    },
+    {
+      "threshold": 52.441331091186576,
+      "micro_accuracy": 0.23559179083497328
+    },
+    {
+      "threshold": 53.0530189161358,
+      "micro_accuracy": 0.2333427045262862
+    },
+    {
+      "threshold": 53.96997371538943,
+      "micro_accuracy": 0.23053134664042732
+    },
+    {
+      "threshold": 54.41092556474136,
+      "micro_accuracy": 0.23053134664042732
+    },
+    {
+      "threshold": 55.445539512235456,
+      "micro_accuracy": 0.228844531908912
+    },
+    {
+      "threshold": 55.98916931401143,
+      "micro_accuracy": 0.2271577171773967
+    },
+    {
+      "threshold": 57.12547619623186,
+      "micro_accuracy": 0.22547090244588136
+    },
+    {
+      "threshold": 57.77714428582742,
+      "micro_accuracy": 0.22378408771436603
+    },
+    {
+      "threshold": 58.38237310094795,
+      "micro_accuracy": 0.22350295192578015
+    },
+    {
+      "threshold": 59.62682626386578,
+      "micro_accuracy": 0.2226595445600225
+    },
+    {
+      "threshold": 60.56550288284727,
+      "micro_accuracy": 0.22322181613719427
+    },
+    {
+      "threshold": 61.450933865560984,
+      "micro_accuracy": 0.21956705088557774
+    },
+    {
+      "threshold": 62.35644546876028,
+      "micro_accuracy": 0.21816137194264829
+    },
+    {
+      "threshold": 63.35727720359796,
+      "micro_accuracy": 0.21422547090244587
+    },
+    {
+      "threshold": 64.45198949238758,
+      "micro_accuracy": 0.21225752038234466
+    },
+    {
+      "threshold": 65.31967475866948,
+      "micro_accuracy": 0.21225752038234466
+    },
+    {
+      "threshold": 66.27134370361841,
+      "micro_accuracy": 0.21141411301658702
+    },
+    {
+      "threshold": 67.63284530984191,
+      "micro_accuracy": 0.2091650267078999
+    },
+    {
+      "threshold": 68.90392124124128,
+      "micro_accuracy": 0.20494798987911161
+    },
+    {
+      "threshold": 70.2472441830589,
+      "micro_accuracy": 0.20326117514759628
+    },
+    {
+      "threshold": 71.97197256235735,
+      "micro_accuracy": 0.199044138318808
+    },
+    {
+      "threshold": 74.18383086130707,
+      "micro_accuracy": 0.19707618779870678
+    },
+    {
+      "threshold": 75.79925766378499,
+      "micro_accuracy": 0.19314028675850436
+    },
+    {
+      "threshold": 77.72043980693057,
+      "micro_accuracy": 0.19145347202698904
+    },
+    {
+      "threshold": 80.7456391304266,
+      "micro_accuracy": 0.18751757098678662
+    },
+    {
+      "threshold": 82.23930285857662,
+      "micro_accuracy": 0.18667416362102895
+    },
+    {
+      "threshold": 84.07490552850898,
+      "micro_accuracy": 0.18414394152375596
+    },
+    {
+      "threshold": 87.10082624717951,
+      "micro_accuracy": 0.181613719426483
+    },
+    {
+      "threshold": 90.59525322640003,
+      "micro_accuracy": 0.17795895417486646
+    },
+    {
+      "threshold": 93.23139240913547,
+      "micro_accuracy": 0.17655327523193703
+    },
+    {
+      "threshold": 99.44194247228084,
+      "micro_accuracy": 0.17261737419173462
+    },
+    {
+      "threshold": 104.94269244110525,
+      "micro_accuracy": 0.16924374472870396
+    },
+    {
+      "threshold": 113.50402779205193,
+      "micro_accuracy": 0.16502670789991566
+    },
+    {
+      "threshold": 123.28466558412794,
+      "micro_accuracy": 0.1622153500140568
+    },
+    {
+      "threshold": 139.82876066418123,
+      "micro_accuracy": 0.1596851279167838
+    },
+    {
+      "threshold": 184.57685094181522,
+      "micro_accuracy": 0.15518695529940962
+    }
+  ]
+}
