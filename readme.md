@@ -10,16 +10,9 @@ Lightweight baseline pipeline for mention-level Entity Linking on the NEREL data
 ### Environment
 
 ```bash
-cd nerel-entity-linking
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-```
-
-On macOS, for Apple Silicon/MPS:
-
-```bash
-export PYTORCH_ENABLE_MPS_FALLBACK=1
 ```
 
 ### 1) Data preparation
