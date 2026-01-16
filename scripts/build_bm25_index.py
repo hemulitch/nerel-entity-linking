@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
-
 import argparse
 import json
 import pickle
@@ -10,7 +6,6 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
-
 from rank_bm25 import BM25Okapi
 
 
@@ -47,7 +42,6 @@ def build_entity_text(rec: Dict[str, Any], max_aliases: int = 30) -> str:
     desc = rec.get("description", "") or ""
     aliases = rec.get("aliases", []) or []
     aliases = aliases[:max_aliases]
-    # простая склейка
     parts = [label]
     if aliases:
         parts.append(" ; ".join(aliases))

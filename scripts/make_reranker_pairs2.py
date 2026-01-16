@@ -246,11 +246,12 @@ def main() -> None:
                     "has_inner_mentions": bool(ex.get("inner_mentions")),
                 })
         else:
-            # non-NULL: need KB text
+            # --- non-NULL: need KB text ---
             if g not in kb_text:
                 skipped_no_kb += 1
                 continue
 
+            # positive
             out_rows.append({
                 "query": query,
                 "candidate": kb_text[g],
@@ -263,35 +264,35 @@ def main() -> None:
                 "has_inner_mentions": bool(ex.get("inner_mentions")),
             })
 
-            # negatives: include NULL as a negative + hard negatives
-            neg_pool = [q for q in cands if q != g]
-            # materialize texts
-            neg_texts = []
-            neg_qids = []
-            for q in neg_pool:
-                t = cand_text(q)
-                if t is None:
-                    continue
-                neg_qids.append(q)
-                neg_texts.append(t)
+            # !!! ALWAYS add NULL as an explicit negative
+            out_rows.append({
+                "query": query,
+                "candidate": NULL_TEXT,
+                "label": 0,
+                "gold_qid": g,
+                "cand_qid": "NULL",
+                "mention_id": ex.get("mention_id"),
+                "entity_type": ex.get("entity_type"),
+                "is_nested": bool(ex.get("is_nested", False)),
+                "has_inner_mentions": bool(ex.get("inner_mentions")),
+            })
 
-            # sample negatives
-            pick = min(args.neg_per_pos, len(neg_qids))
-            chosen_idx = rng.sample(range(len(neg_qids)), k=pick) if pick > 0 else []
-            chosen = [neg_qids[i] for i in chosen_idx]
-            # if not enough, fill with random KB negatives
-            while len(chosen) < args.neg_per_pos:
+            # other negatives (hard negatives) — exclude NULL and gold
+            remaining = max(0, args.neg_per_pos - 1)
+
+            neg_pool = [q for q in cands if q != g and q != "NULL" and q in kb_text]
+            negs = rng.sample(neg_pool, k=min(remaining, len(neg_pool)))
+
+            # fill up if not enough
+            while len(negs) < remaining:
                 q = rng.choice(kb_keys)
                 if q != g:
-                    chosen.append(q)
+                    negs.append(q)
 
-            for nq in chosen:
-                t = NULL_TEXT if nq == "NULL" else kb_text.get(nq)
-                if t is None:
-                    continue
+            for nq in negs:
                 out_rows.append({
                     "query": query,
-                    "candidate": t,
+                    "candidate": kb_text[nq],
                     "label": 0,
                     "gold_qid": g,
                     "cand_qid": nq,
@@ -300,6 +301,7 @@ def main() -> None:
                     "is_nested": bool(ex.get("is_nested", False)),
                     "has_inner_mentions": bool(ex.get("inner_mentions")),
                 })
+
 
         used += 1
         if args.max_train_mentions is not None and used >= args.max_train_mentions:

@@ -1,2 +1,8 @@
-pip install requests rank-bm25 tqdm
-pip install transformers datasets accelerate torch -U
+numpy>=1.23
+tqdm>=4.66
+requests>=2.31
+rank-bm25>=0.2.2
+transformers>=4.44.0
+datasets>=2.19.0
+torch>=2.1.0
+accelerate>=0.28.0

@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
-
 import argparse
 import json
 import math
@@ -15,7 +11,6 @@ from collections import defaultdict
 
 import numpy as np
 
-# ---- utils I/O ----
 def read_jsonl(path: Path) -> Iterable[Dict[str, Any]]:
     with path.open("r", encoding="utf-8") as f:
         for line in f:
@@ -36,7 +31,6 @@ def write_jsonl(path: Path, rows: Iterable[Dict[str, Any]]) -> None:
             f.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
-# ---- canonicalization for gold ids ----
 ID_RE = re.compile(r"(Q\d+|P\d+)")
 
 def canonical_id(x: Any) -> Optional[str]:
@@ -53,11 +47,10 @@ def canonical_id(x: Any) -> Optional[str]:
     return m.group(1)
 
 
-# ---- BM25 pickle compatibility ----
 @dataclass
 class BM25Index:
     qids: List[str]
-    bm25: Any  # BM25Okapi
+    bm25: Any
 
 
 WORD_RE = re.compile(r"[0-9A-Za-zА-Яа-яЁё_]+")
@@ -87,7 +80,7 @@ def predict_top1(idx: BM25Index, query: str) -> Tuple[str, float]:
     return idx.qids[best_i], float(scores[best_i])
 
 
-# ---- metrics ----
+# metrics
 def micro_accuracy(gold: List[str], pred: List[str]) -> float:
     return sum(int(g == p) for g, p in zip(gold, pred)) / max(1, len(gold))
 
@@ -117,7 +110,7 @@ def acc_on_mask(gold: List[str], pred: List[str], mask: List[bool]) -> float:
     return sum(int(gold[i] == pred[i]) for i in idx) / len(idx)
 
 
-# ---- core eval ----
+# core eval
 def run_split(
     idx: BM25Index,
     split_path: Path,
@@ -143,7 +136,7 @@ def run_split(
         pred.append(p)
         types.append(ex["entity_type"])
         is_nested = bool(ex.get("is_nested", False))
-        has_inner = bool(ex.get("inner_mentions"))  # outer-mentions subset proxy
+        has_inner = bool(ex.get("inner_mentions"))
         is_nested_mask.append(is_nested)
         has_inner_mask.append(has_inner)
         best_scores.append(score_best)

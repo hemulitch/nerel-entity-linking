@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
 
 import argparse
@@ -107,7 +104,6 @@ class WikidataClient:
                 continue
 
             if r.status_code == 400:
-                # если вдруг ещё раз словим 400 — выведем кусок запроса
                 snippet = sparql[:800].replace("\n", " ")
                 raise RuntimeError(f"Wikidata SPARQL 400. Query snippet: {snippet}")
 
@@ -120,7 +116,6 @@ class WikidataClient:
         if not qids:
             return {}
 
-        # здесь qids уже канонические (Q\d+|P\d+)
         values = " ".join(f"wd:{qid}" for qid in qids)
 
         sparql = f"""
@@ -162,7 +157,6 @@ SELECT ?item ?itemLabel ?itemDescription ?altLabel WHERE {{
             if alt:
                 rec["aliases"].append(alt)
 
-        # dedup aliases
         for qid, rec in out.items():
             seen = set()
             uniq = []
@@ -183,7 +177,7 @@ def main() -> None:
     ap.add_argument("--out_kb", type=str, default="data/kb/entities_all.jsonl")
     ap.add_argument("--qids_from", type=str, default="all", choices=["train", "all"])
     ap.add_argument("--endpoint", type=str, default="https://query.wikidata.org/sparql")
-    ap.add_argument("--batch_size", type=int, default=30)  # можно 30, чтобы запросы были короче
+    ap.add_argument("--batch_size", type=int, default=30) 
     ap.add_argument("--sleep", type=float, default=0.2)
     ap.add_argument("--user_agent", type=str, default="nerel-el-course-project/0.1 (contact: you@example.com)")
     args = ap.parse_args()
