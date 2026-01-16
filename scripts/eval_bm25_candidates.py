@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from __future__ import annotations
-
 import argparse
 import json
 import pickle
@@ -43,7 +39,7 @@ def tokenize(s: str) -> List[str]:
 @dataclass
 class BM25Index:
     qids: List[str]
-    bm25: Any  # BM25Okapi
+    bm25: Any 
 
 
 def load_bm25(path: Path) -> BM25Index:
